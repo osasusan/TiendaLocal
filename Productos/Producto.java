@@ -3,16 +3,16 @@ package Productos;
 import Tienda.Atajos;
 
 public abstract  class Producto {
-    public String name;
-    public double price;
-    public int stock;
+    private String name;
+    private double price;
+    private int stock;
 
     public Producto (String name, double price, int stock) {
         this.name = name;
         this.price = price;
         this.stock = stock;
     }
-    abstract int getStock();
+    abstract int getCantidad();
     abstract String typeProducto();
 
     public Producto() {
@@ -23,7 +23,31 @@ public abstract  class Producto {
         name = Atajos.getTexto();
         Atajos.imprimir("Ingrese el precio del producto:");
         price = Atajos.getDouble();
-        getStock();
+        getCantidad();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    int getStock() {
+        return stock;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
 }

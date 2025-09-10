@@ -18,12 +18,11 @@ public class Accesorios extends Producto {
     }
 
     @Override
-    int getStock() {
-
-        Atajos.imprimir("El stock de " + name + " es: " + stock);
-        stock = Atajos.getNum();
-        Atajos.imprimir("Stock actualizado a: " + stock);
-        return stock;
+    int getCantidad() {
+        Atajos.imprimir("El stock de " + getName() + " es: " + getStock());
+        setStock(Atajos.getNum());
+        Atajos.imprimir("Stock actualizado a: " + getStock());
+        return getStock();
     }
 
 }

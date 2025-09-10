@@ -4,6 +4,9 @@ package Usuarios;
 
 public class Admin extends Usuario {
 
+    public Admin(String admin, String string) {
+    }
+
 
     @Override
      void userLog() {

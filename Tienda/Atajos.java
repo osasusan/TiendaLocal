@@ -13,21 +13,27 @@ package Tienda;
 import java.util.Scanner;
 
 public class Atajos{
-
+private static final Scanner scanner = new Scanner(System.in);
     public static void imprimir(String texto) { // imprime un texto en consola
         System.out.println(texto);
 
     }
 
+public static void mostrarMenu(String[] opciones) {
+    for (int i = 0; i < opciones.length; i++) {
+        System.out.println((i + 1) + ". " + opciones[i]);
+    }
+}
+
     public static String getTexto() {
         String textInput = "";
         do {
             try {
-                textInput = new Scanner(System.in).nextLine();
+                textInput = scanner.nextLine();
             } catch (Exception e) {
                 errorAtajo("texto");
             }
-        } while (textInput.equals(""));
+        } while (textInput.isEmpty());
         return textInput;
     }
 
@@ -39,7 +45,7 @@ public class Atajos{
         int num = -1;
         do {
             try {
-                num = new Scanner(System.in).nextInt();
+                num = scanner.nextInt();
             } catch (Exception e) {
                 errorAtajo("numero");
             }
@@ -51,7 +57,7 @@ public class Atajos{
         double num = -0.00;
         do {
             try {
-                num = new Scanner(System.in).nextDouble();
+                num = scanner.nextDouble();
             } catch (Exception e) {
                 errorAtajo("numero");
             }
@@ -62,13 +68,20 @@ public class Atajos{
         float num =  0.0f;
         do {
             try{ 
-             num = new Scanner(System.in).nextFloat();
+             num = scanner.nextFloat();
             } catch (Exception e) {
                 errorAtajo("numero");
             }
         } while (num == 0.0f);
         return num;
     }
+
+    public static void get5Random(){
+        for (int i = 0; i < 5; i++) {
+            System.out.println(Math.random());
+        }
+    }
+
     private static void errorAtajo(String property) { // metodo para manejar errores
         imprimir(" Error a la hora de obtener un " + property + " ,\nPor favor, intentalo de nuevo.");
     }
