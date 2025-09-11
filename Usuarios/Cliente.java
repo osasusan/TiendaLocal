@@ -7,9 +7,9 @@ public class Cliente extends Usuario {
     @Override
     public void userLog() {
         Atajos.imprimir("Ingrese su nombre:");
-        name = Atajos.getTexto();
+        setName(Atajos.getTexto());
         Atajos.imprimir("Ingrese su contraseña:");
-        password = Atajos.getTexto();
+        setPassword(Atajos.getTexto());
         // Aquí puedes agregar la lógica de autenticación
     }
 }

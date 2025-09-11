@@ -7,6 +7,7 @@ public abstract  class Producto {
     private double price;
     private int stock;
 
+   
     public Producto (String name, double price, int stock) {
         this.name = name;
         this.price = price;
@@ -34,7 +35,7 @@ public abstract  class Producto {
         return price;
     }
 
-    int getStock() {
+    public int getStock() {
         return stock;
     }
 
@@ -48,6 +49,9 @@ public abstract  class Producto {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+    public String showData(){
+        return "Nombre: " + name + ", Precio: $" + price + ", Stock: " + stock ;
     }
 
 }
