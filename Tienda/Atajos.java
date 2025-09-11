@@ -10,6 +10,9 @@
 
 package Tienda;
 
+import Productos.Producto;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Atajos{
@@ -23,6 +26,7 @@ public static void mostrarMenu(String[] opciones) {
     for (int i = 0; i < opciones.length; i++) {
         System.out.println((i + 1) + ". " + opciones[i]);
     }
+    System.out.println((opciones.length + 1) + ". Salir");
 }
 
     public static String getTexto() {
@@ -30,6 +34,20 @@ public static void mostrarMenu(String[] opciones) {
         do {
             try {
                 textInput = scanner.nextLine();
+            } catch (Exception e) {
+                errorAtajo("texto");
+            }
+        } while (textInput.isEmpty());
+        return textInput;
+    }
+    public static String getEmaill() {
+        String textInput = "";
+        do {
+            try {
+                textInput = scanner.nextLine();
+                if (!textInput.contains("@")&&!textInput.contains(".") && textInput.length()<5||textInput.length()>50||textInput.contains(" ")) {
+                    throw new Exception("Email inválido");
+                }
             } catch (Exception e) {
                 errorAtajo("texto");
             }
@@ -76,9 +94,39 @@ public static void mostrarMenu(String[] opciones) {
         return num;
     }
 
-    public static void get5Random(){
-        for (int i = 0; i < 5; i++) {
-            System.out.println(Math.random());
+    public static int[] fiveRandom(int size) {
+        int[] list = new int[5];
+        int number;
+        Random random = new Random();
+
+        for (int i = 0; i < list.length; i++) {
+            do {
+                number = random.nextInt(size);
+            } while (!numberNotInArray(list, number));
+            list[i] = number;
+        }
+        return list;
+    }
+
+    public static boolean numberNotInArray(int[] array, int number) {
+        for (int value : array) {
+            if (value == number) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Método para imprimir nombre y precio de 5 productos aleatorios
+    public static void imprimir5ProductosAleatorios(List<Producto> productos) {
+        if (productos == null || productos.size() < 5) {
+            imprimir("La lista debe tener al menos 5 elementos.");
+            return;
+        }
+        int[] indices = fiveRandom(productos.size());
+        for (int idx : indices) {
+            Producto producto = productos.get(idx);
+            imprimir("Nombre: " + producto.getName() + ", Precio: " + producto.getPrice());
         }
     }
 
