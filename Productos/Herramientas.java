@@ -2,13 +2,13 @@ package Productos;
 
 import Tienda.Atajos;
 
-public class Heramientas extends Producto {
+public class Herramientas extends Producto {
 
-    public Heramientas(String name, double price, int stock) {
+    public Herramientas(String name, double price, int stock) {
         super(name, price, stock);
     }
 
-    public Heramientas() {
+    public Herramientas() {
 
     }
 
@@ -21,7 +21,8 @@ public class Heramientas extends Producto {
     }
 
     @Override
-    String typeProducto() {
+     public 
+     String typeProducto() {
         return "Herramientas";
     }
 }

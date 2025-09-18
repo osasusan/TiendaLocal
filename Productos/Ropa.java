@@ -21,6 +21,7 @@ public class Ropa extends Producto {
     }
 
     @Override
+    public
     String typeProducto() {
         return "Ropa";
     }

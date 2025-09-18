@@ -2,12 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author osasusan
  */
-
 package Tienda;
 
 import Productos.Producto;
@@ -15,41 +13,51 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Atajos{
-private static final Scanner scanner = new Scanner(System.in);
+public class Atajos {
+
     public static void imprimir(String texto) { // imprime un texto en consola
         System.out.println(texto);
 
     }
 
-public static void mostrarMenu(String[] opciones) {
-    for (int i = 0; i < opciones.length; i++) {
-        System.out.println((i + 1) + ". " + opciones[i]);
+    public static void mostrarMenu(String[] opciones) {
+        for (int i = 0; i < opciones.length; i++) {
+            System.out.println((i + 1) + ". " + opciones[i]);
+        }
+        System.out.println((opciones.length + 1) + ". Salir");
     }
-    System.out.println((opciones.length + 1) + ". Salir");
-}
 
     public static String getTexto() {
         String textInput = "";
         do {
             try {
-                textInput = scanner.nextLine();
+                textInput = new Scanner(System.in).nextLine();
+                if (textInput.isEmpty()) {
+                    imprimir("El texto no puede estar vacío, intente de nuevo.");
+                    textInput = "";
+                }
             } catch (Exception e) {
                 errorAtajo("texto");
+                // Clear input to repeat loop
+                textInput = "";
             }
         } while (textInput.isEmpty());
         return textInput;
     }
+
     public static String getEmaill() {
         String textInput = "";
         do {
             try {
-                textInput = scanner.nextLine();
-                if (!textInput.contains("@")&&!textInput.contains(".") && textInput.length()<5||textInput.length()>50||textInput.contains(" ")) {
-                    throw new Exception("Email inválido");
+                textInput = new Scanner(System.in).nextLine();
+                if (!textInput.contains("@") || !textInput.contains(".")) {
+                    imprimir("Email inválido, no cumple los requisitos.\nPor favor, intente de nuevo.");
+                    textInput = ""; // Clear input to repeat loop
                 }
             } catch (Exception e) {
-                errorAtajo("texto");
+                errorAtajo("Email");
+                // Clear input to repeat loop
+
             }
         } while (textInput.isEmpty());
         return textInput;
@@ -63,7 +71,7 @@ public static void mostrarMenu(String[] opciones) {
         int num = -1;
         do {
             try {
-                num = scanner.nextInt();
+                num = new Scanner(System.in).nextInt();
             } catch (Exception e) {
                 errorAtajo("numero");
             }
@@ -75,20 +83,21 @@ public static void mostrarMenu(String[] opciones) {
         double num = -0.00;
         do {
             try {
-                num = scanner.nextDouble();
+                num = new Scanner(System.in).nextDouble();
             } catch (Exception e) {
-                errorAtajo("numero");
+                errorAtajo("Double");
             }
         } while (num == -1);
         return num;
     }
+
     public static float getFloat() { // recojer un numero FLOAT desde consola
-        float num =  0.0f;
+        float num = 0.0f;
         do {
-            try{ 
-             num = scanner.nextFloat();
+            try {
+                num = new Scanner(System.in).nextFloat();
             } catch (Exception e) {
-                errorAtajo("numero");
+                errorAtajo("Float");
             }
         } while (num == 0.0f);
         return num;

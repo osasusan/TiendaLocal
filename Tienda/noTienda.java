@@ -2,7 +2,7 @@ package Tienda;
 
 import Productos.Accesorios;
 import Productos.Game;
-import Productos.Heramientas;
+import Productos.Herramientas;
 import Productos.Home;
 import Productos.Ropa;
 import Usuarios.Admin;
@@ -19,11 +19,11 @@ public class noTienda {
         listLister.getProductos().add(new Game("Zelda", 50.0, 1));
 
         //Herramientas
-        listLister.getProductos().add(new Heramientas("Martillo", 15.0, 10));
-        listLister.getProductos().add(new Heramientas("Destornillador", 8.0, 25));
-        listLister.getProductos().add(new Heramientas("Alicates", 12.0, 15));
-        listLister.getProductos().add(new Heramientas("Sierra", 22.0, 5));
-        listLister.getProductos().add(new Heramientas("Taladro", 45.0, 2));
+        listLister.getProductos().add(new Herramientas("Destornillador", 8.0, 25));
+        listLister.getProductos().add(new Herramientas("Martillo", 15.0, 10));
+        listLister.getProductos().add(new Herramientas("Alicates", 12.0, 15));
+        listLister.getProductos().add(new Herramientas("Sierra", 22.0, 5));
+        listLister.getProductos().add(new Herramientas("Taladro", 45.0, 2));
 
         //Home
         listLister.getProductos().add(new Home("Sofa", 300.0, 5));
@@ -45,6 +45,11 @@ public class noTienda {
         listLister.getProductos().add(new Accesorios("Collar", 75.0, 8));
         listLister.getProductos().add(new Accesorios("Gafas", 150.0, 3));
         listLister.getProductos().add(new Accesorios("Sombrero", 30.0, 12));
+
+        listLister.getCupones().put("ABCD", 30);
+        listLister.getCupones().put("1234", 30);
+        listLister.getCupones().put("PaPa", 30);
+        listLister.getCupones().put("MaMa", 30);
 
         listLister.getUsers().put("admin", new Admin());
 
@@ -85,9 +90,23 @@ public class noTienda {
                 }
                 case 2 -> {
                     Atajos.imprimir("¡Bienvenido al Registro!");
-                    Atajos.imprimir("Ingrese su correo:");
-                    String correo = Atajos.getEmaill();
-                    listLister.getUsers().put(correo, new Cliente());
+                    String correo = "";
+
+                    boolean correoValido = false;
+                    while (!correoValido) {
+                        try {
+                            Atajos.imprimir("Ingrese su correo:");
+                            correo = Atajos.getEmaill();
+                            if (correo.isEmpty() || listLister.getUsers().containsKey(correo)) {
+                                Atajos.imprimir("Correo inválido o ya registrado, intente de nuevo.");
+                            } else {
+                                listLister.getUsers().put(correo, new Cliente());
+                                correoValido = true;
+                            }
+                        } catch (Exception e) {
+                            Atajos.imprimir("Correo inválido, intente de nuevo.");
+                        }
+                    }
                     Atajos.imprimir("¡Registro exitoso!");
 
                     Atajos.imprimir("Bienvenido " + listLister.getUsers().get(correo).getName());

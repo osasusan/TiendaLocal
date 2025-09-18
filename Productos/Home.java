@@ -15,7 +15,7 @@ public class Home extends Producto {
     }
 
     @Override
-    String typeProducto() {
+    public String typeProducto() {
         return "Home";
     }
 

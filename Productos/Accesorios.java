@@ -13,6 +13,7 @@ public class Accesorios extends Producto {
     }
 
     @Override
+    public
     String typeProducto() {
         return "Accesorios";
     }

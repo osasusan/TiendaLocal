@@ -22,6 +22,7 @@ public class Game extends Producto{
     }
 
     @Override
+    public
     String typeProducto() {
         return "Juego";
     }

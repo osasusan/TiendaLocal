@@ -14,9 +14,10 @@ public abstract  class Producto {
         this.stock = stock;
     }
     abstract int getCantidad();
+    public
     abstract String typeProducto();
 
-    public Producto() {
+    public Producto(){
         nProducto();
     }
     private void nProducto() {
@@ -50,8 +51,8 @@ public abstract  class Producto {
     public void setStock(int stock) {
         this.stock = stock;
     }
-    public String showData(){
-        return "Nombre: " + name + ", Precio: $" + price + ", Stock: " + stock ;
+    public String showData(int posicion){
+        return   posicion + " - Nombre: " + name + ", Precio: " + price + "€ , Stock: " + stock;
     }
 
 }
