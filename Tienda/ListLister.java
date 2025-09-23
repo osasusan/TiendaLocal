@@ -2,18 +2,18 @@
 package Tienda;
 
 
+import Productos.Producto;
+import Usuarios.Usuario;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import Productos.Producto;
-import Usuarios.Usuario;
 
 
 
 public class ListLister {
 
  List<Producto> productos;
- HashMap<String, Integer> cupones;
+ HashMap<String, Double> cupones;
  HashMap<String, Usuario> users;
  List<Producto> carrito;
 
@@ -25,7 +25,7 @@ public class ListLister {
      * @param productos the list of all available products
      * @param users     a map of usernames to their corresponding Usuario objects
      */
-    public ListLister(List<Producto> carrito, HashMap<String, Integer> cupones, List<Producto> productos, HashMap<String, Usuario> users) {
+    public ListLister(List<Producto> carrito, HashMap<String, Double> cupones, List<Producto> productos, HashMap<String, Usuario> users) {
         this.carrito = carrito;
         this.cupones = cupones;
         this.productos = productos;
@@ -47,11 +47,11 @@ public class ListLister {
         this.productos = productos;
     }
 
-    public HashMap<String, Integer> getCupones() {
+    public HashMap<String, Double> getCupones() {
         return cupones;
     }
 
-    public void setCupones(HashMap<String, Integer> cupones) {
+    public void setCupones(HashMap<String, Double> cupones) {
         this.cupones = cupones;
     }
 

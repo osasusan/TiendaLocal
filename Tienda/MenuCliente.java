@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MenuCliente {
 
-    public static void menuCliente(ListLister listLister) {
+    public static void menuCliente(ListLister listLister, boolean isLog) {
 
         Producto[] random = new Producto[5];
         int[] randomIndices = Atajos.fiveRandom(listLister.getProductos().size());
@@ -50,44 +50,52 @@ public class MenuCliente {
 
                         agragarAlCarrito(listLister, List.of(random), num, true);
                     }
-                    
+
                 }
                 case 2 -> {
-                    Atajos.imprimirSeparador();
-                    Atajos.imprimir("Ingrese el nombre del producto que desea buscar:");
-                    String nombreBusqueda = Atajos.getTexto();
-                    List<Producto> productoBuscado = new ArrayList<>();
-                    for (Producto producto : listLister.getProductos()) {
-                        if (producto.getName().toLowerCase().contains(nombreBusqueda.toLowerCase())) {
-                            productoBuscado.add(producto);
-                        }
-                    }
-                    if (productoBuscado.isEmpty()) {
-                        Atajos.imprimir("No se encontraron productos con ese nombre.");
-                    } else {
-                        Atajos.imprimir("Productos encontrados:");
-                        for (int i = 0; i < productoBuscado.size(); i++) {
-                            Atajos.imprimir(productoBuscado.get(i).showData(i + 1));
-                        }
+                    Atajos.mostrarMenu(new String[]{"Categorias", "Buscador global"});
+                    int getOption = Atajos.getNum();
+                    if (getOption == 1) {
+                        porCategorias(listLister);
+                    } else if (getOption == 2) {
                         Atajos.imprimirSeparador();
-                        Atajos.imprimir("Seleccione un producto del menú mostrando un número:");
-                        int num = Atajos.getNum();
-                        if (num < 1 || num > productoBuscado.size()) {
-                            Atajos.imprimir("Número inválido. Por favor, seleccione un número válido.");
-                        } else {
-                            boolean comprado = true;
-                            if (productoBuscado.get(num - 1).getStock() <= 0) {
-                                Atajos.imprimir("Lo sentimos, el producto está agotado y no se puede agregar al carrito.");
-                            } else {
-
-                                agragarAlCarrito(listLister, productoBuscado, num, comprado);
-
+                        Atajos.imprimir("Ingrese el nombre del producto que desea buscar:");
+                        String nombreBusqueda = Atajos.getTexto();
+                        List<Producto> productoBuscado = new ArrayList<>();
+                        for (Producto producto : listLister.getProductos()) {
+                            if (producto.getName().toLowerCase().contains(nombreBusqueda.toLowerCase())) {
+                                productoBuscado.add(producto);
                             }
                         }
+                        if (productoBuscado.isEmpty()) {
+                            Atajos.imprimir("No se encontraron productos con ese nombre.");
+                        } else {
+                            Atajos.imprimir("Productos encontrados:");
+                            for (int i = 0; i < productoBuscado.size(); i++) {
+                                Atajos.imprimir(productoBuscado.get(i).showData(i + 1));
+                            }
+                            Atajos.imprimirSeparador();
+                            Atajos.imprimir("Seleccione un producto del menú mostrando un número:");
+                            int num = Atajos.getNum();
+                            if (num < 1 || num > productoBuscado.size()) {
+                                Atajos.imprimir("Número inválido. Por favor, seleccione un número válido.");
+                            } else {
+                                boolean comprado = true;
+                                if (productoBuscado.get(num - 1).getStock() <= 0) {
+                                    Atajos.imprimir("Lo sentimos, el producto está agotado y no se puede agregar al carrito.");
+                                } else {
+
+                                    agragarAlCarrito(listLister, productoBuscado, num, comprado);
+
+                                }
+                            }
+                        }
+                    } else {
+                        return;
                     }
                 }
                 case 3 -> {
-                    
+
                     if (listLister.getCarrito().isEmpty()) {
                         Atajos.imprimir("El carrito está vacío.");
                     } else {
@@ -100,19 +108,45 @@ public class MenuCliente {
                 }
                 case 4 -> {
                     try {
-                        if (listLister.getCarrito().isEmpty()){
+                        if (listLister.getCarrito().isEmpty()) {
                             Atajos.imprimir("El carrito está vacío. No se puede realizar la compra.");
                             break;
                         } else {
                             double total = 0.0;
-                            for(Producto p : listLister.getCarrito()){
+                            for (Producto p : listLister.getCarrito()) {
                                 Atajos.imprimir(p.showData(listLister.getCarrito().indexOf(p) + 1));
                                 total += p.getPrice();
                             }
                             Atajos.imprimir("Total a pagar: " + total);
                             Atajos.imprimir("¿Desea confirmar la compra? (s/n)");
                             String respuesta = Atajos.getTexto();
-                            if (respuesta.equalsIgnoreCase("s")){
+                            if (respuesta.equalsIgnoreCase("s")) {
+                                if (isLog) {
+                                    Atajos.imprimir("desea aplicár un cupon de descuento (s/n)");
+                                    String cupon = Atajos.getTexto();
+
+                                    if (cupon.equalsIgnoreCase("s")) {
+                                        Atajos.imprimir("introdcuce el codigo:");
+                                        String cupon2 = Atajos.getTexto();
+                                        try {
+                                            if (listLister.getCupones().containsKey(cupon2)) {
+                                                double descuento = listLister.getCupones().get(cupon2).intValue();
+                                                descuento = 1 - (descuento / 100);
+                                                total = total * descuento;
+                                                Atajos.imprimirSeparador();
+                                                Atajos.imprimir("Cupon válidoo, \ntotal:" + total + "€");
+                                                Atajos.imprimirSeparador();
+                                            } else {
+                                                Atajos.imprimirSeparador();
+                                                Atajos.imprimir("Cuppon no válido");
+                                                Atajos.imprimirSeparador();
+                                            }
+
+                                        } catch (Exception e) {
+                                            Atajos.imprimir("Erro cupon invalido");
+                                        }
+                                    }
+                                }
                                 Atajos.imprimir("Añada la cantidad de dinero necesaria para completar la compra:");
                                 try {
                                     double dinero = Atajos.getNum();
@@ -126,22 +160,23 @@ public class MenuCliente {
                                         Atajos.imprimir("le faltan: " + (total - dinero) + " €");
                                         Atajos.imprimirSeparador();
                                         Atajos.imprimir("Compra cancelada.");
-                                        break;  
+                                        break;
                                     }
                                 } catch (Exception e) {
                                     Atajos.imprimir("Error al ingresar la cantidad de dinero. Compra cancelada.");
                                 }
                             } else if (respuesta.equalsIgnoreCase("n")) {
                                 Atajos.imprimir("Compra cancelada.");
-                            }else{
+                            } else {
                                 Atajos.imprimir("Resppuesta no valida , intentalo de nuevo");
+
                             }
                         }
                     } catch (Exception e) {
                         Atajos.imprimir("Ha ocurrido un error durante el proceso de compra. Inténtelo de nuevo.");
                     }
                 }
-                    case 5 ->{
+                case 5 -> {
                     Atajos.imprimir("Hasta la próxima.");
                     condition = false;
                 }
@@ -151,6 +186,7 @@ public class MenuCliente {
 
         } while (condition);
     }
+
     public static void agragarAlCarrito(ListLister listLister, List<Producto> productoBuscado, int num, boolean comprado) {
 
         Atajos.imprimir("¿Desea agregar este producto al carrito? (s/n)");
@@ -202,14 +238,77 @@ public class MenuCliente {
                 }
 
                 listLister.getCarrito().add(nuevoProducto);
-                productoTienda.setStock(productoTienda.getStock() - 1);
+               
                 Atajos.imprimir("Producto agregado al carrito.");
             }
+             productoTienda.setStock(productoTienda.getStock() - 1);
         } else if (respuesta.equalsIgnoreCase("n")) {
             Atajos.imprimir("Producto no agregado al carrito.");
         } else {
             Atajos.imprimir("Respuesta no válida. Producto no agregado al carrito.");
         }
     }
-    
+
+    public static void porCategorias(ListLister listLister) {
+        String[] categotias = {"Accesorios", "Juegos", "Herramientas", "Home", "Ropa"};
+        Atajos.mostrarMenu(categotias);
+        Atajos.imprimirSeparador();
+
+        Atajos.imprimir("Seleciona una categoria");
+        Atajos.imprimirSeparador();
+
+        int numero = Atajos.getNum();
+        if (numero < 1 || numero > categotias.length) {
+            Atajos.imprimir("Categoria no encontrrada");
+            Atajos.imprimirSeparador();
+
+            return;
+        }
+        String categotiSelect = categotias[numero - 1];
+        Atajos.imprimir(categotiSelect);
+        List<Producto> productosFil = new ArrayList<>();
+        for (Producto p : listLister.getProductos()) {
+            switch (categotiSelect) {
+                case "Accesorios" -> {if (p instanceof Accesorios){ productosFil.add(p); }
+                }
+                case "Games" -> {if (p instanceof Game) {productosFil.add(p);}
+                }
+                case "Herramientas" -> {if (p instanceof Herramientas) {productosFil.add(p);}
+                }
+                case "Home" -> {if (p instanceof Home) { productosFil.add(p);}
+                }
+
+                case "Ropa" -> {if (p instanceof Ropa) {productosFil.add(p);}
+                }
+            }
+        }
+        if (productosFil.isEmpty()) {
+            Atajos.imprimir("no ha categorrias");
+            Atajos.imprimirSeparador();
+
+        } else {
+            Atajos.imprimir("Productos en la categoría " + categotiSelect + ":");
+            for (int i = 0; i < productosFil.size(); i++) {
+                Atajos.imprimir(productosFil.get(i).showData(i + 1));
+
+            }
+            Atajos.imprimirSeparador();
+            Atajos.imprimir("Seleccione un producto del menú mostrando un número:");
+            int num = Atajos.getNum();
+            if (num < 1 || num > productosFil.size()) {
+                Atajos.imprimir("Número inválido. Por favor, seleccione un número válido.");
+                Atajos.imprimirSeparador();
+
+            } else {
+                boolean comprado = true;
+                if (productosFil.get(num - 1).getStock() <= 0) {
+                    Atajos.imprimir("Lo sentimos, el producto está agotado y no se puede agregar al carrito.");
+                    Atajos.imprimirSeparador();
+
+                } else {
+                    agragarAlCarrito(listLister, productosFil, num, comprado);
+                }
+            }
+        }
+    }
 }

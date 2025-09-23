@@ -46,10 +46,10 @@ public class noTienda {
         listLister.getProductos().add(new Accesorios("Gafas", 150.0, 3));
         listLister.getProductos().add(new Accesorios("Sombrero", 30.0, 12));
 
-        listLister.getCupones().put("ABCD", 30);
-        listLister.getCupones().put("1234", 30);
-        listLister.getCupones().put("PaPa", 30);
-        listLister.getCupones().put("MaMa", 30);
+        listLister.getCupones().put("ABCD", 30.0);
+        listLister.getCupones().put("1234", 30.0);
+        listLister.getCupones().put("PaPa", 30.0);
+        listLister.getCupones().put("MaMa", 30.0);
 
         listLister.getUsers().put("admin", new Admin());
 
@@ -79,7 +79,7 @@ public class noTienda {
                         if (listLister.getUsers().get(email) instanceof Admin) {
                             MenuAdmin.menuAdmin(listLister);
                         } else {
-                            MenuCliente.menuCliente(listLister);
+                            MenuCliente.menuCliente(listLister,true);
                         }
                     } else {
                         Atajos.imprimir("Nombre de usuario o contraseña incorrectos.");
@@ -111,13 +111,13 @@ public class noTienda {
 
                     Atajos.imprimir("Bienvenido " + listLister.getUsers().get(correo).getName());
                     Atajos.imprimirSeparador();
-                    MenuCliente.menuCliente(listLister);
+                    MenuCliente.menuCliente(listLister,true);
 
                 }
 
                 case 3 -> {
                     Atajos.imprimir("Continuar como invitado en desarrollo.");
-                    MenuCliente.menuCliente(listLister);
+                    MenuCliente.menuCliente(listLister,false);
                 }
                 case 4 -> {
                     Atajos.imprimir("Hasta la próxima.");
