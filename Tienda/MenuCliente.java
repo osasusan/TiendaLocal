@@ -48,51 +48,24 @@ public class MenuCliente {
                     } else {
                         Atajos.imprimir(random[num - 1].showData(opcion));
 
-                        agragarAlCarrito(listLister, List.of(random), num, true);
+                        Atajos.agragarAlCarrito(listLister, List.of(random), num, true);
                     }
 
                 }
                 case 2 -> {
                     Atajos.mostrarMenu(new String[]{"Categorias", "Buscador global"});
                     int getOption = Atajos.getNum();
-                    if (getOption == 1) {
-                        porCategorias(listLister);
-                    } else if (getOption == 2) {
-                        Atajos.imprimirSeparador();
-                        Atajos.imprimir("Ingrese el nombre del producto que desea buscar:");
-                        String nombreBusqueda = Atajos.getTexto();
-                        List<Producto> productoBuscado = new ArrayList<>();
-                        for (Producto producto : listLister.getProductos()) {
-                            if (producto.getName().toLowerCase().contains(nombreBusqueda.toLowerCase())) {
-                                productoBuscado.add(producto);
-                            }
-                        }
-                        if (productoBuscado.isEmpty()) {
-                            Atajos.imprimir("No se encontraron productos con ese nombre.");
-                        } else {
-                            Atajos.imprimir("Productos encontrados:");
-                            for (int i = 0; i < productoBuscado.size(); i++) {
-                                Atajos.imprimir(productoBuscado.get(i).showData(i + 1));
-                            }
-                            Atajos.imprimirSeparador();
-                            Atajos.imprimir("Seleccione un producto del menú mostrando un número:");
-                            int num = Atajos.getNum();
-                            if (num < 1 || num > productoBuscado.size()) {
-                                Atajos.imprimir("Número inválido. Por favor, seleccione un número válido.");
-                            } else {
-                                boolean comprado = true;
-                                if (productoBuscado.get(num - 1).getStock() <= 0) {
-                                    Atajos.imprimir("Lo sentimos, el producto está agotado y no se puede agregar al carrito.");
-                                } else {
-
-                                    agragarAlCarrito(listLister, productoBuscado, num, comprado);
-
-                                }
-                            }
-                        }
-                    } else {
+                switch (getOption) {
+                    case 1 -> porCategorias(listLister);
+                    case 2 -> {
+                        boolean  delete = false;
+                        Atajos.buscarOBorrar(listLister,  delete);
+                    }
+                    default -> {
+                        Atajos.imprimir("Volviendo al menu de administrador");
                         return;
                     }
+                }
                 }
                 case 3 -> {
 
@@ -154,6 +127,7 @@ public class MenuCliente {
                                         double cambio = dinero - total;
                                         Atajos.imprimir("Compra realizada con éxito.");
                                         Atajos.imprimir("Su cambio es: " + cambio + " € \n Muchas gracias por su compra.");
+                                        listLister.setRecaudado(listLister.getRecaudado()+ total);
                                         listLister.getCarrito().clear();
                                     } else {
                                         Atajos.imprimir("Dinero insuficiente. No se puede realizar la compra.");
@@ -187,67 +161,7 @@ public class MenuCliente {
         } while (condition);
     }
 
-    public static void agragarAlCarrito(ListLister listLister, List<Producto> productoBuscado, int num, boolean comprado) {
-
-        Atajos.imprimir("¿Desea agregar este producto al carrito? (s/n)");
-        String respuesta = Atajos.getTexto();
-        if (respuesta.equalsIgnoreCase("s")) {
-            Producto productoTienda = productoBuscado.get(num - 1);
-
-            if (productoTienda.getStock() <= 0) {
-
-                Atajos.imprimir("Lo sentimos, el producto está agotado y no se puede agregar al carrito.");
-                return;
-            }
-
-            Producto poductoEnCarrito = null;
-            for (Producto p : listLister.getCarrito()) {
-                if (p.getName().equals(productoTienda.getName())) {
-                    poductoEnCarrito = p;
-                    break;
-                }
-            }
-            // Si el producto ya está en el carrito, incrementa su stock
-            if (poductoEnCarrito != null) {
-                poductoEnCarrito.setStock(poductoEnCarrito.getStock() + 1);
-                poductoEnCarrito.setPrice(poductoEnCarrito.getPrice() + poductoEnCarrito.getPrice());
-                Atajos.imprimir("Producto agregado al carrito.");
-            } else {
-
-                Producto nuevoProducto; // Establece el stock inicial en 1 para el nuevo producto en el carrito
-
-                switch (productoTienda.typeProducto()) {
-                    case "Ropa":
-                        nuevoProducto = new Ropa(productoTienda.getName(), productoTienda.getPrice(), 1);
-                        break;
-                    case "Electronica":
-                        nuevoProducto = new Accesorios(productoTienda.getName(), productoTienda.getPrice(), 1);
-                        break;
-                    case "Home":
-                        nuevoProducto = new Home(productoTienda.getName(), productoTienda.getPrice(), 1);
-                        break;
-                    case "Juego":
-                        nuevoProducto = new Game(productoTienda.getName(), productoTienda.getPrice(), 1);
-                        break;
-                    case "Herramientas":
-                        nuevoProducto = new Herramientas(productoTienda.getName(), productoTienda.getPrice(), 1);
-                        break;
-                    default:
-                        nuevoProducto = new Ropa(productoTienda.getName(), productoTienda.getPrice(), 1); // Fallback
-                        break;
-                }
-
-                listLister.getCarrito().add(nuevoProducto);
-               
-                Atajos.imprimir("Producto agregado al carrito.");
-            }
-             productoTienda.setStock(productoTienda.getStock() - 1);
-        } else if (respuesta.equalsIgnoreCase("n")) {
-            Atajos.imprimir("Producto no agregado al carrito.");
-        } else {
-            Atajos.imprimir("Respuesta no válida. Producto no agregado al carrito.");
-        }
-    }
+    
 
     public static void porCategorias(ListLister listLister) {
         String[] categotias = {"Accesorios", "Juegos", "Herramientas", "Home", "Ropa"};
@@ -271,7 +185,7 @@ public class MenuCliente {
             switch (categotiSelect) {
                 case "Accesorios" -> {if (p instanceof Accesorios){ productosFil.add(p); }
                 }
-                case "Games" -> {if (p instanceof Game) {productosFil.add(p);}
+                case "Juegos" -> {if (p instanceof Game) {productosFil.add(p);}
                 }
                 case "Herramientas" -> {if (p instanceof Herramientas) {productosFil.add(p);}
                 }
@@ -306,7 +220,7 @@ public class MenuCliente {
                     Atajos.imprimirSeparador();
 
                 } else {
-                    agragarAlCarrito(listLister, productosFil, num, comprado);
+                    Atajos.agragarAlCarrito(listLister, productosFil, num, comprado);
                 }
             }
         }

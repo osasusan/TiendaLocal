@@ -7,6 +7,8 @@ import Productos.Home;
 import Productos.Ropa;
 import Usuarios.Admin;
 import Usuarios.Cliente;
+import Usuarios.Usuario;
+import java.util.Map;
 
 public class noTienda {
 
@@ -51,7 +53,7 @@ public class noTienda {
         listLister.getCupones().put("PaPa", 30.0);
         listLister.getCupones().put("MaMa", 30.0);
 
-        listLister.getUsers().put("admin", new Admin());
+        listLister.getUsers().put("admin@.es", new Admin());
 
         Atajos.imprimir("¡Bienvenido a la tienda!");
         Atajos.imprimirSeparador();
@@ -59,7 +61,11 @@ public class noTienda {
         //Atajos.getTexto();
         boolean condition = false;
         while (!condition) {
-
+           for (Map.Entry<String, Usuario> listUsEntry: listLister.getUsers().entrySet()){
+                    String username =  listUsEntry.getKey();
+                    Usuario usuario = listUsEntry.getValue();
+                    Atajos.imprimir("Usuario: " + username + " " + usuario.showData());
+                  }
             Atajos.mostrarMenu(new String[]{"iniciar sesion", "Registrarse", "Continuar como invitado"});
             int opMenu = Atajos.getNum();
 

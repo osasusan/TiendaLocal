@@ -13,7 +13,7 @@ public abstract  class Producto {
         this.price = price;
         this.stock = stock;
     }
-    abstract int getCantidad();
+    public abstract int getCantidad();
     public
     abstract String typeProducto();
 
@@ -21,11 +21,15 @@ public abstract  class Producto {
         nProducto();
     }
     private void nProducto() {
+      
+
         Atajos.imprimir("Ingrese el nombre del producto:");
         name = Atajos.getTexto();
         Atajos.imprimir("Ingrese el precio del producto:");
         price = Atajos.getDouble();
+        
         getCantidad();
+        
     }
 
     public String getName() {

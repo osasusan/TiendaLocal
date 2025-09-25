@@ -16,6 +16,9 @@ public class ListLister {
  HashMap<String, Double> cupones;
  HashMap<String, Usuario> users;
  List<Producto> carrito;
+ double recaudado = 0;
+
+    
 
     /**
      * Constructs a new ListLister instance with the specified shopping cart, coupons, products, and users.
@@ -25,11 +28,12 @@ public class ListLister {
      * @param productos the list of all available products
      * @param users     a map of usernames to their corresponding Usuario objects
      */
-    public ListLister(List<Producto> carrito, HashMap<String, Double> cupones, List<Producto> productos, HashMap<String, Usuario> users) {
+    public ListLister(List<Producto> carrito, HashMap<String, Double> cupones, List<Producto> productos, HashMap<String, Usuario> users, double  recaudado) {
         this.carrito = carrito;
         this.cupones = cupones;
         this.productos = productos;
         this.users = users;
+        this.recaudado = recaudado;
     }
 
     public ListLister() {
@@ -37,6 +41,7 @@ public class ListLister {
         this.cupones = new HashMap<>();
         this.productos = new ArrayList<>();
         this.users = new HashMap<>();
+
     }
 
     public List<Producto> getProductos() {
@@ -69,6 +74,14 @@ public class ListLister {
 
     public void setCarrito(List<Producto> carrito) {
         this.carrito = carrito;
+    }
+
+    public double  getRecaudado() {
+        return recaudado;
+    }
+
+    public void setRecaudado(double  recaudado) {
+        this.recaudado = recaudado;
     }
 
 

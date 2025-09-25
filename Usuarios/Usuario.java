@@ -26,4 +26,9 @@ public abstract class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String showData() {
+
+    return "Nombre: "  + getName();
+        
+    }
 }

@@ -19,8 +19,10 @@ public class Accesorios extends Producto {
     }
 
     @Override
-    int getCantidad() {
+    public 
+  int getCantidad() {
         Atajos.imprimir("El stock de " + getName() + " es: " + getStock());
+        Atajos.imprimir("indica cual es el nuevo stock");
         setStock(Atajos.getNum());
         Atajos.imprimir("Stock actualizado a: " + getStock());
         return getStock();
