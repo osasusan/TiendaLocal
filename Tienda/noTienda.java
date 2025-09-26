@@ -61,11 +61,11 @@ public class noTienda {
         //Atajos.getTexto();
         boolean condition = false;
         while (!condition) {
-           for (Map.Entry<String, Usuario> listUsEntry: listLister.getUsers().entrySet()){
-                    String username =  listUsEntry.getKey();
-                    Usuario usuario = listUsEntry.getValue();
-                    Atajos.imprimir("Usuario: " + username + " " + usuario.showData());
-                  }
+            for (Map.Entry<String, Usuario> listUsEntry : listLister.getUsers().entrySet()) {
+                String username = listUsEntry.getKey();
+                Usuario usuario = listUsEntry.getValue();
+                Atajos.imprimir("Usuario: " + username + " " + usuario.showData());
+            }
             Atajos.mostrarMenu(new String[]{"iniciar sesion", "Registrarse", "Continuar como invitado"});
             int opMenu = Atajos.getNum();
 
@@ -85,14 +85,12 @@ public class noTienda {
                         if (listLister.getUsers().get(email) instanceof Admin) {
                             MenuAdmin.menuAdmin(listLister);
                         } else {
-                            MenuCliente.menuCliente(listLister,true);
+                            MenuCliente.menuCliente(listLister, true);
                         }
                     } else {
                         Atajos.imprimir("Nombre de usuario o contraseña incorrectos.");
                     }
-
-                    Atajos.imprimir5ProductosAleatorios(listLister.getProductos());
-
+                    
                 }
                 case 2 -> {
                     Atajos.imprimir("¡Bienvenido al Registro!");
@@ -117,13 +115,13 @@ public class noTienda {
 
                     Atajos.imprimir("Bienvenido " + listLister.getUsers().get(correo).getName());
                     Atajos.imprimirSeparador();
-                    MenuCliente.menuCliente(listLister,true);
+                    MenuCliente.menuCliente(listLister, true);
 
                 }
 
                 case 3 -> {
-                    Atajos.imprimir("Continuar como invitado en desarrollo.");
-                    MenuCliente.menuCliente(listLister,false);
+
+                    MenuCliente.menuCliente(listLister, false);
                 }
                 case 4 -> {
                     Atajos.imprimir("Hasta la próxima.");

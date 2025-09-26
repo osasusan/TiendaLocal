@@ -26,8 +26,9 @@ public class MenuAdmin {
                 "Ver todos los usuarios registrados",
                 "Añadir cup�n",
                 "Eliminar cupon"});
+            Atajos.imprimirSeparador();
             int opcion = Atajos.getNum();
-
+            Atajos.imprimirSeparador();
             switch (opcion) {
                 case 1 -> {
                     String[] categotias = {"Accesorio", "Juego", "Herramienta", "Home", "Ropa"};
@@ -61,9 +62,11 @@ public class MenuAdmin {
                             Atajos.imprimir("Has añadido " + nuevoProducto.getName() + " corretament");
                         }
                     }
+                    Atajos.imprimirSeparador();
                     Atajos.imprimir("Funcionalidad de agregar producto en desarrollo.");
                 }
                 case 2 -> {
+
                     Atajos.imprimir("di el nombre del producto al que quieres actualizar el stock");
                     String nombreP = Atajos.getTexto();
                     List<Producto> actualizarStockk = new ArrayList<>();
@@ -72,7 +75,7 @@ public class MenuAdmin {
                             actualizarStockk.add(p);
                         }
                     }
-                    if( actualizarStockk.isEmpty()){
+                    if (actualizarStockk.isEmpty()) {
                         Atajos.imprimir("Producto no encontrado");
                         return;
                     }
@@ -91,11 +94,12 @@ public class MenuAdmin {
                     }
                 }
                 case 3 -> {
-                    Atajos.imprimir("Funcionalidad de eliminar producto en desarrollo.");
+
                     var delete = true;
                     Atajos.buscarOBorrar(listLister, delete);
                 }
                 case 4 -> {
+
                     if (listLister.getRecaudado() != 0.0) {
                         Atajos.imprimir("has recaudado : " + listLister.getRecaudado());
                     } else {
@@ -112,7 +116,7 @@ public class MenuAdmin {
 
                 }
                 case 6 -> {
-                    Atajos.imprimirSeparador();
+
                     Atajos.imprimir("Indique la clave del nuevo cupon");
                     Atajos.imprimirSeparador();
                     String nuevoCupon = Atajos.getTexto();

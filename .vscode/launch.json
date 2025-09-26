@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "noTienda",
+            "request": "launch",
+            "mainClass": "Tienda.noTienda",
+            "projectName": "TiendaLocal_98481bc7"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

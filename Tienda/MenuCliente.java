@@ -29,6 +29,7 @@ public class MenuCliente {
             Atajos.mostrarMenu(new String[]{"Productos destacados", "Buscar Productos", "Ver carrito", "Realizar compra"});
 
             int opcion = Atajos.getNum();
+            Atajos.imprimirSeparador();
 
             switch (opcion) {
                 case 1 -> {
@@ -37,6 +38,7 @@ public class MenuCliente {
                         Atajos.imprimir(random[i].showData(i + 1));
 
                     }
+
                     Atajos.imprimirSeparador();
                     Atajos.imprimir("Seleccione un producto del menú mostrando un número:");
 
@@ -55,17 +57,18 @@ public class MenuCliente {
                 case 2 -> {
                     Atajos.mostrarMenu(new String[]{"Categorias", "Buscador global"});
                     int getOption = Atajos.getNum();
-                switch (getOption) {
-                    case 1 -> porCategorias(listLister);
-                    case 2 -> {
-                        boolean  delete = false;
-                        Atajos.buscarOBorrar(listLister,  delete);
+                    switch (getOption) {
+                        case 1 ->
+                            porCategorias(listLister);
+                        case 2 -> {
+                            boolean delete = false;
+                            Atajos.buscarOBorrar(listLister, delete);
+                        }
+                        default -> {
+                            Atajos.imprimir("Volviendo al menu de administrador");
+                            return;
+                        }
                     }
-                    default -> {
-                        Atajos.imprimir("Volviendo al menu de administrador");
-                        return;
-                    }
-                }
                 }
                 case 3 -> {
 
@@ -76,8 +79,8 @@ public class MenuCliente {
                         for (Producto producto : listLister.getCarrito()) {
                             Atajos.imprimir(producto.showData(listLister.getCarrito().indexOf(producto) + 1));
                         }
+
                     }
-                    Atajos.imprimirSeparador();
                 }
                 case 4 -> {
                     try {
@@ -97,6 +100,7 @@ public class MenuCliente {
                                 if (isLog) {
                                     Atajos.imprimir("desea aplicár un cupon de descuento (s/n)");
                                     String cupon = Atajos.getTexto();
+                                    Atajos.imprimirSeparador();
 
                                     if (cupon.equalsIgnoreCase("s")) {
                                         Atajos.imprimir("introdcuce el codigo:");
@@ -127,7 +131,7 @@ public class MenuCliente {
                                         double cambio = dinero - total;
                                         Atajos.imprimir("Compra realizada con éxito.");
                                         Atajos.imprimir("Su cambio es: " + cambio + " € \n Muchas gracias por su compra.");
-                                        listLister.setRecaudado(listLister.getRecaudado()+ total);
+                                        listLister.setRecaudado(listLister.getRecaudado() + total);
                                         listLister.getCarrito().clear();
                                     } else {
                                         Atajos.imprimir("Dinero insuficiente. No se puede realizar la compra.");
@@ -161,8 +165,6 @@ public class MenuCliente {
         } while (condition);
     }
 
-    
-
     public static void porCategorias(ListLister listLister) {
         String[] categotias = {"Accesorios", "Juegos", "Herramientas", "Home", "Ropa"};
         Atajos.mostrarMenu(categotias);
@@ -183,16 +185,31 @@ public class MenuCliente {
         List<Producto> productosFil = new ArrayList<>();
         for (Producto p : listLister.getProductos()) {
             switch (categotiSelect) {
-                case "Accesorios" -> {if (p instanceof Accesorios){ productosFil.add(p); }
+                case "Accesorios" -> {
+                    if (p instanceof Accesorios) {
+                        productosFil.add(p);
+                    }
                 }
-                case "Juegos" -> {if (p instanceof Game) {productosFil.add(p);}
+                case "Juegos" -> {
+                    if (p instanceof Game) {
+                        productosFil.add(p);
+                    }
                 }
-                case "Herramientas" -> {if (p instanceof Herramientas) {productosFil.add(p);}
+                case "Herramientas" -> {
+                    if (p instanceof Herramientas) {
+                        productosFil.add(p);
+                    }
                 }
-                case "Home" -> {if (p instanceof Home) { productosFil.add(p);}
+                case "Home" -> {
+                    if (p instanceof Home) {
+                        productosFil.add(p);
+                    }
                 }
 
-                case "Ropa" -> {if (p instanceof Ropa) {productosFil.add(p);}
+                case "Ropa" -> {
+                    if (p instanceof Ropa) {
+                        productosFil.add(p);
+                    }
                 }
             }
         }

@@ -56,7 +56,7 @@ public abstract  class Producto {
         this.stock = stock;
     }
     public String showData(int posicion){
-        return   posicion + " - Nombre: " + name + ", Precio: " + price + "€ , Stock: " + stock;
+        return   posicion + " - Nombre: " + name + ", Precio: " + price + "€  , Stock: " + stock;
     }
 
 }
