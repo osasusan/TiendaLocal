@@ -13,17 +13,19 @@ public class Accesorios extends Producto {
     }
 
     @Override
+    public
     String typeProducto() {
         return "Accesorios";
     }
 
     @Override
-    int getStock() {
-
-        Atajos.imprimir("El stock de " + name + " es: " + stock);
-        stock = Atajos.getNum();
-        Atajos.imprimir("Stock actualizado a: " + stock);
-        return stock;
+    public 
+  int getCantidad() {
+        Atajos.imprimir("El stock de " + getName() + " es: " + getStock());
+        Atajos.imprimir("indica cual es el nuevo stock");
+        setStock(Atajos.getNum());
+        Atajos.imprimir("Stock actualizado a: " + getStock());
+        return getStock();
     }
 
 }

@@ -2,19 +2,19 @@ package Productos;
 
 import Tienda.Atajos;
 
-public class Ropa extends Producto {
+public class Herramientas extends Producto {
 
-    public Ropa(String name, double price, int stock) {
+    public Herramientas(String name, double price, int stock) {
         super(name, price, stock);
     }
 
-    public Ropa() {
-     
+    public Herramientas() {
+
     }
 
     @Override
     public
-   int getCantidad() {
+    int getCantidad() {
         Atajos.imprimir("El stock de " + getName() + " es: " + getStock());
         Atajos.imprimir("indica cual es el nuevo stock");
         setStock(Atajos.getNum());
@@ -23,10 +23,8 @@ public class Ropa extends Producto {
     }
 
     @Override
-    public
-    String typeProducto() {
-        return "Ropa";
+     public 
+     String typeProducto() {
+        return "Herramientas";
     }
-
-   
 }
