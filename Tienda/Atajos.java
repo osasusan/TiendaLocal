@@ -35,37 +35,41 @@ public class Atajos {
 
     public static String getTexto() {
         String textInput = "";
-        do {
-            try {
-                textInput = new Scanner(System.in).nextLine();
-                if (textInput.isEmpty()) {
-                    imprimir("El texto no puede estar vacío, intente de nuevo.");
+        try (Scanner scanner = new Scanner(System.in)) {
+            do {
+                try {
+                    textInput = scanner.nextLine();
+                    if (textInput.isEmpty()) {
+                        imprimir("El texto no puede estar vacío, intente de nuevo.");
+                        textInput = "";
+                    }
+                } catch (Exception e) {
+                    errorAtajo("texto");
+                    // Clear input to repeat loop
                     textInput = "";
                 }
-            } catch (Exception e) {
-                errorAtajo("texto");
-                // Clear input to repeat loop
-                textInput = "";
-            }
-        } while (textInput.isEmpty());
+            } while (textInput.isEmpty());
+        }
         return textInput;
     }
 
     public static String getEmaill() {
         String textInput = "";
-        do {
-            try {
-                textInput = new Scanner(System.in).nextLine();
-                if (!textInput.contains("@") || !textInput.contains(".")) {
-                    imprimir("Email inválido, no cumple los requisitos.\nPor favor, intente de nuevo.");
-                    textInput = ""; // Clear input to repeat loop
-                }
-            } catch (Exception e) {
-                errorAtajo("Email");
-                // Clear input to repeat loop
+        try (Scanner scanner = new Scanner(System.in)) {
+            do {
+                try {
+                    textInput = scanner.nextLine();
+                    if (!textInput.contains("@") || !textInput.contains(".")) {
+                        imprimir("Email inválido, no cumple los requisitos.\nPor favor, intente de nuevo.");
+                        textInput = ""; // Clear input to repeat loop
+                    }
+                } catch (Exception e) {
+                    errorAtajo("Email");
+                    // Clear input to repeat loop
 
-            }
-        } while (textInput.isEmpty());
+                }
+            } while (textInput.isEmpty());
+        }
         return textInput;
     }
 
@@ -75,37 +79,43 @@ public class Atajos {
 
     public static int getNum() { // recojer un numero INT desde consola 
         int num = -1;
-        do {
-            try {
-                num = new Scanner(System.in).nextInt();
-            } catch (Exception e) {
-                errorAtajo("numero");
-            }
-        } while (num == -1);
+        try (Scanner scanner = new Scanner(System.in)) {
+            do {
+                try {
+                    num = scanner.nextInt();
+                } catch (Exception e) {
+                    errorAtajo("numero");
+                }
+            } while (num == -1);
+        }
         return num;
     }
 
     public static double getDouble() { // recojer un numero DOUBLE desde consola
         double num = -0.00;
-        do {
-            try {
-                num = new Scanner(System.in).nextDouble();
-            } catch (Exception e) {
-                errorAtajo("Double");
-            }
-        } while (num == -1);
+        try (Scanner scanner = new Scanner(System.in)) {
+            do {
+                try {
+                    num = scanner.nextDouble();
+                } catch (Exception e) {
+                    errorAtajo("Double");
+                }
+            } while (num == -1);
+        }
         return num;
     }
 
     public static float getFloat() { // recojer un numero FLOAT desde consola
         float num = 0.0f;
-        do {
-            try {
-                num = new Scanner(System.in).nextFloat();
-            } catch (Exception e) {
-                errorAtajo("Float");
-            }
-        } while (num == 0.0f);
+        try (Scanner scanner = new Scanner(System.in)) {
+            do {
+                try {
+                    num = scanner.nextFloat();
+                } catch (Exception e) {
+                    errorAtajo("Float");
+                }
+            } while (num == 0.0f);
+        }
         return num;
     }
 
